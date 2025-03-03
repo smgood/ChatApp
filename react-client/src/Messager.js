@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Messager.css';
+import './Messager.scss';
 import { Author, WebSocketConnector } from "./WebSocketConnector.js";
 
 class Messager extends Component {
