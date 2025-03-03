@@ -6,12 +6,11 @@ Url:
 TODO List:
 
     Near Term
-    1. make css use flex grid
-    2. add AWS integration
-    3. add dynabo db table to store chat
-    4. add infinite scrolling / pagination for chat history
-    5. add username and password / sessions
-    6. add author name to chat (store photos in s3)
+    1. add AWS integration
+    2. add dynabo db table to store chat
+    3. add infinite scrolling / pagination for chat history
+    4. add username and password / sessions
+    5. add author name to chat (store photos in s3)
 
     Long Term
     1. add user photo
