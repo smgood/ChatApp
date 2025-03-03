@@ -55,10 +55,10 @@ class Messager extends Component {
     render() {
         return (
             <div className="messager">
-                <div>
+                <div className="received-messages">
                     {this.renderMessages()}
                 </div>
-                <div className="message-box-row">
+                <div className="write-message">
                     <input 
                         value={this.state.messageInput} 
                         onChange={(event) => this.updateMessageInput(event.target.value)}

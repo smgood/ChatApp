@@ -1,26 +1,13 @@
 .messager  {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    position: relative;
     width: 100%;
 }
 
-.message-box-row {
-    bottom: 3px;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-}
-
-input {
-    border-width: 1px;
-    padding: 10px;
-    width: calc(100% - 129px);
-}
-
-button {
-    border-width: 1px;
-    height: 37.5px;
-    width: 105px;
+.received-messages {
+    overflow: scroll;
+    flex: 1 1 auto
 }
 
 .message-row {
@@ -29,9 +16,11 @@ button {
 }
 
 .message {
-    display: block;
-    padding: 10px;
     border-radius: 10px;
+    margin: 1px;
+    max-width: calc(100% - 20px);
+    padding: 10px;
+    word-wrap: break-word;
 }
 
 .self {
@@ -42,4 +31,20 @@ button {
 .other {
     background-color: grey;
     float: left;
+}
+
+.write-message {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    margin-bottom: 3px;
+}
+
+input {
+    flex: 1 1 auto;
+    padding: 10px;
+}
+
+button {
+    flex: 0 0 auto;
 }
