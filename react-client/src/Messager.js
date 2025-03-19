@@ -1,41 +1,41 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import './Messager.scss';
-import { Author, WebSocketConnector } from "./WebSocketConnector.js";
+import { Author } from "./WebSocketConnector.js";
 
-class Messager extends Component {
-    constructor(props) {
-        super(props);
-        this.webSocketConnector = WebSocketConnector.getInstance();
-        this.state = {
-            sentMessages: this.webSocketConnector.sentMessages,
-            messageInput: '', // To store incoming messages
+function Messager ({ webSocket }) {
+    let webSocketConnector = webSocket.getInstance();
+
+    // list of sent messages.
+    const [sentMessages, setSentMessages] = useState(webSocketConnector.sentMessages);
+
+    // User typed message that has not been sent yet.
+    const [messageInput, setMessageInput] = useState('');
+ 
+    useEffect(() => {
+        webSocketConnector.subscribe(handleSentMessagesUpdate);
+
+        // Cleanup function (similar to componentWillUnmount)
+        return () => {
+            webSocketConnector.unsubscribe(handleSentMessagesUpdate);
         };
-    }
+      }, []);
 
-    componentDidMount() {
-        this.webSocketConnector.subscribe(this.handleSentMessagesUpdate); // Subscribe to B's changes
-    }
+    const handleSentMessagesUpdate = () => {
+        setSentMessages(webSocketConnector.sentMessages);
+    };
 
-    componentWillUnmount() {
-        this.webSocketConnector.unsubscribe(this.handleSentMessagesUpdate); // Important: Unsubscribe on unmount
-    }
-
-    handleSentMessagesUpdate = () => {
-        this.setState({ sentMessages: this.webSocketConnector.sentMessages }); // Update state when sent messages changes
+    const sendMessage = () => {
+        webSocketConnector.sendMessage(messageInput);
+        setMessageInput('');
     };
     
-    sendMessage = () => {
-        this.webSocketConnector.sendMessage(this.state.messageInput);
-        this.setState({ messageInput: '' });
-    };
-    
-    updateMessageInput = (messageInput) => {
-        this.setState({ messageInput });
+    const updateMessageInput = (event) => {
+        setMessageInput(event.target.value);
     }
 
-    renderMessages = () => this.state.sentMessages.map((message) => this.renderMessage(message));
+    const renderMessages = () => sentMessages.map((message) => renderMessage(message));
     
-    renderMessage = (message) => {
+    const renderMessage = (message) => {
         const messageClass = `message ${message.author == Author.SELF ? 'self' : 'other'}`;
         return (
             <div className='message-row'> 
@@ -46,29 +46,27 @@ class Messager extends Component {
         );
     }
 
-    handleKeyDown = (event) => {
+    const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            this.sendMessage();
+            sendMessage();
         }
     }
-  
-    render() {
-        return (
-            <div className="messager">
-                <div className="received-messages">
-                    {this.renderMessages()}
-                </div>
-                <div className="write-message">
-                    <input 
-                        value={this.state.messageInput} 
-                        onChange={(event) => this.updateMessageInput(event.target.value)}
-                        onKeyDown={this.handleKeyDown}
-                    />
-                    <button onClick={() => this.sendMessage()}>Send Message</button>
-                </div>
+
+    return (
+        <div className="messager">
+            <div className="received-messages">
+                {renderMessages()}
             </div>
-        );
-    }
+            <div className="write-message">
+                <input
+                    value={messageInput}
+                    onChange={updateMessageInput}
+                    onKeyDown={handleKeyDown}
+                />
+                <button onClick={sendMessage}>Send Message</button>
+            </div>
+        </div>
+    );
 }
 
 export default Messager;

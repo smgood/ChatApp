@@ -5,16 +5,16 @@ export const Author = {
 };
 
 export class WebSocketConnector {
-    static instance;
+  static instance;
 
-    constructor() {
-        if (WebSocketConnector.instance) {
-            return WebSocketConnector.instance;
-        }
-        WebSocketConnector.instance = this;
+  constructor() {
+    if (WebSocketConnector.instance) {
+      return WebSocketConnector.instance;
+    }
+    WebSocketConnector.instance = this;
 
-        this.listeners = [];
-        this.connectWebSocket();
+    this.listeners = [];
+    this.connectWebSocket();
   }
 
 

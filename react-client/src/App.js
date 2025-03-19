@@ -1,19 +1,13 @@
-import React, { Component } from "react";
 import './App.css';
 import Messager from "./Messager.js";
+import { WebSocketConnector } from "./WebSocketConnector.js";
 
-class App extends Component {
-  constructor () {
-    super();
-  }
-
- render() {
+function App() {
   return (
     <div className="App">
-        <Messager webSocket={this.webSocketConnector} />
+        <Messager webSocket={ WebSocketConnector } />
     </div>
   );
- }
 }
 
 export default App;
