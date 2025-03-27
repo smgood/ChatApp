@@ -6,9 +6,9 @@ Url:
 TODO List:
 
     Near Term
-    1. add AWS integration
+    1. add Cloud trail integration
     2. add dynabo db table to store chat
-    3. add infinite scrolling / pagination for chat history
+    3. add infinite scrolling (intersection observer api) / pagination for chat history
     4. add username and password / sessions
     5. add author name to chat (store photos in s3)
 
@@ -21,3 +21,4 @@ TODO List:
     6. add shared event calendar.
     7. purchase dedicated domain name for website
     8. add react native app
+    9. add an indicator of who is online
